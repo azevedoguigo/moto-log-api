@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
+import { MotorcycleModule } from './motorcycle/motorcycle.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://<username>:<password>@cluster0.dyrl2me.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.DATABASE_CONNECTION),
     UserModule,
+    MotorcycleModule,
   ],
 })
 export class AppModule {}
