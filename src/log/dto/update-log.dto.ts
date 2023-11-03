@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateLogDto } from './create-log.dto';
+import { IsNotEmpty, Length } from 'class-validator';
 
-export class UpdateLogDto extends PartialType(CreateLogDto) {}
+export class UpdateLogDto {
+  fuel: number;
+
+  maintenance: number;
+
+  finalMileage: number;
+
+  finished?: boolean;
+
+  @IsNotEmpty()
+  @Length(7)
+  motorcyclePlate: string;
+}

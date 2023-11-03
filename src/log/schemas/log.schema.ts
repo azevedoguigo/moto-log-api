@@ -21,7 +21,7 @@ export class Log {
   finished?: boolean;
 
   @Prop()
-  motorcycleID: string;
+  motorcyclePlate: string;
 }
 
 export const LogSchema = SchemaFactory.createForClass(Log);
