@@ -32,8 +32,16 @@ export class LogService {
     return `This action returns a #${id} log`;
   }
 
-  update(id: number, updateLogDto: UpdateLogDto) {
-    return `This action updates a #${id} log`;
+  async update(id: string, updateLogDto: UpdateLogDto) {
+    const motorcycle = await this.motorcycleModel.findOne({
+      plate: updateLogDto.motorcyclePlate,
+    });
+
+    if (!motorcycle) throw new NotFoundException('Motorcycle not registred!');
+
+    const updatedLog = await this.logModel.findOneAndUpdate(updateLogDto);
+
+    return await updatedLog.save();
   }
 
   remove(id: number) {

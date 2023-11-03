@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { LogService } from './log.service';
 import { CreateLogDto } from './dto/create-log.dto';
@@ -30,9 +30,9 @@ export class LogController {
     return this.logService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLogDto: UpdateLogDto) {
-    return this.logService.update(+id, updateLogDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateLogDto: UpdateLogDto) {
+    return await this.logService.update(id, updateLogDto);
   }
 
   @Delete(':id')
