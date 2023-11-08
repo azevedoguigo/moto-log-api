@@ -14,9 +14,9 @@ export class LogService {
   ) {}
 
   async create(createLogDto: CreateLogDto) {
-    const motorcycle = await this.motorcycleModel.findOne({
-      plate: createLogDto.motorcyclePlate,
-    });
+    const motorcycle = await this.motorcycleModel.findById(
+      createLogDto.motorcycleId,
+    );
 
     if (!motorcycle) throw new NotFoundException('Motorcycle not registred!');
 
@@ -24,8 +24,14 @@ export class LogService {
     return (await createdLog).save();
   }
 
-  findAll() {
-    return `This action returns all log`;
+  async findAll(motoID: string): Promise<Log[]> {
+    const moto = await this.motorcycleModel.findById(motoID);
+
+    if (!moto) throw new NotFoundException('Motorcycle does not exists!');
+
+    const logs = await this.logModel.find({ motorcycleId: moto._id }).exec();
+
+    return logs;
   }
 
   findOne(id: number) {
