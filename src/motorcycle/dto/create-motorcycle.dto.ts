@@ -17,5 +17,5 @@ export class CreateMotorcycleDto {
   plate: string;
 
   @IsNotEmpty()
-  ownerID: string;
+  userId: string;
 }

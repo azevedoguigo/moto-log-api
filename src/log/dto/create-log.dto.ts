@@ -14,5 +14,5 @@ export class CreateLogDto {
 
   @IsNotEmpty()
   @Length(7)
-  motorcyclePlate: string;
+  motorcycleId: string;
 }
