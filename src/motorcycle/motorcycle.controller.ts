@@ -3,13 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { MotorcycleService } from './motorcycle.service';
 import { CreateMotorcycleDto } from './dto/create-motorcycle.dto';
-import { UpdateMotorcycleDto } from './dto/update-motorcycle.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('motorcycle')
 export class MotorcycleController {
@@ -26,13 +26,9 @@ export class MotorcycleController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.motorcycleService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMotorcycleDto: UpdateMotorcycleDto) {
-    return this.motorcycleService.update(+id, updateMotorcycleDto);
+  @UseGuards(AuthGuard)
+  async findOne(@Param('id') motorcycleId: string) {
+    return await this.motorcycleService.findOne(motorcycleId);
   }
 
   @Delete(':id')
