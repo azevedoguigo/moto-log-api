@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMotorcycleDto } from './dto/create-motorcycle.dto';
-import { UpdateMotorcycleDto } from './dto/update-motorcycle.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Motorcycle } from './schemas/motorcycle.schema';
 import { Model } from 'mongoose';
@@ -20,12 +19,12 @@ export class MotorcycleService {
     return `This action returns all motorcycle`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} motorcycle`;
-  }
+  async findOne(motorcycleId: string) {
+    const motorcycle = await this.motorcycleModel.findById(motorcycleId);
 
-  update(id: number, updateMotorcycleDto: UpdateMotorcycleDto) {
-    return `This action updates a #${id} motorcycle`;
+    if (!motorcycle) throw new NotFoundException('Motorcycle does not exists!');
+
+    return motorcycle;
   }
 
   remove(id: number) {
