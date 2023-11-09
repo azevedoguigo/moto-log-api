@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Param,
-  Delete,
   Put,
   UseGuards,
 } from '@nestjs/common';
@@ -19,29 +18,19 @@ export class LogController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Body() createLogDto: CreateLogDto) {
-    return this.logService.create(createLogDto);
+  async create(@Body() createLogDto: CreateLogDto) {
+    return await this.logService.create(createLogDto);
   }
 
   @Get(':motoId')
   @UseGuards(AuthGuard)
-  findAll(@Param('motoId') motoId: string) {
-    return this.logService.findAll(motoId);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.logService.findOne(+id);
+  async findAll(@Param('motoId') motoId: string) {
+    return await this.logService.findAll(motoId);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard)
   async update(@Param('id') id: string, @Body() updateLogDto: UpdateLogDto) {
     return await this.logService.update(id, updateLogDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.logService.remove(+id);
   }
 }

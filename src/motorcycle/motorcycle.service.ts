@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateMotorcycleDto } from './dto/create-motorcycle.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Motorcycle } from './schemas/motorcycle.schema';
@@ -29,19 +33,11 @@ export class MotorcycleService {
     return createdMotorcycle;
   }
 
-  findAll() {
-    return `This action returns all motorcycle`;
-  }
-
   async findOne(motorcycleId: string) {
     const motorcycle = await this.motorcycleModel.findById(motorcycleId);
 
     if (!motorcycle) throw new NotFoundException('Motorcycle does not exists!');
 
     return motorcycle;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} motorcycle`;
   }
 }

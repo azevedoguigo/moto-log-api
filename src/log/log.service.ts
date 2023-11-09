@@ -34,10 +34,6 @@ export class LogService {
     return logs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} log`;
-  }
-
   async update(id: string, updateLogDto: UpdateLogDto) {
     const motorcycle = await this.motorcycleModel.findOne({
       plate: updateLogDto.motorcyclePlate,
@@ -48,9 +44,5 @@ export class LogService {
     const updatedLog = await this.logModel.findOneAndUpdate(updateLogDto);
 
     return await updatedLog.save();
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} log`;
   }
 }
