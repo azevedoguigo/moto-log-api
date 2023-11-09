@@ -8,6 +8,7 @@ export class MotorcycleController {
   constructor(private readonly motorcycleService: MotorcycleService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   async create(@Body() createMotorcycleDto: CreateMotorcycleDto) {
     return await this.motorcycleService.create(createMotorcycleDto);
   }
